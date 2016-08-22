@@ -1,0 +1,1 @@
+"%~dp0\Server-Side-Resources\WebTWAINService.exe"  -install
