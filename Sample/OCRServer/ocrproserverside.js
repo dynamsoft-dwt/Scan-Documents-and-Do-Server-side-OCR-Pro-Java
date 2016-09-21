@@ -322,9 +322,9 @@ function DoOCR() {
 		var strFilePath = date.getFullYear() + "_" + (date.getMonth() + 1) + "_" + date.getDate() + "_" + date.getHours() + "_" + date.getMinutes() + "_" + date.getSeconds() + "_" + date.getMilliseconds() + ".pdf";
 
 		var strHTTPServer = location.hostname;
-		DWObject.IfSSL = DynamLib.detect.ssl;
+		DWObject.IfSSL = Dynamsoft.Lib.detect.ssl;
 		var _strPort = location.port == "" ? 80 : location.port;
-		if (DynamLib.detect.ssl == true)
+		if (Dynamsoft.Lib.detect.ssl == true)
 			_strPort = location.port == "" ? 443 : location.port;
 		DWObject.HTTPPort = _strPort;
 
@@ -396,7 +396,7 @@ function GetDownloadURL(outPutFile) {
 		filename = outPutFile.substring(pos + findText.length, outPutFile.length);
 
 	var _strPort = location.port == "" ? 80 : location.port;
-	if (DynamLib.detect.ssl == true) {
+	if (Dynamsoft.Lib.detect.ssl == true) {
 		_strPort = location.port == "" ? 443 : location.port;
 		downloadURLTemp = "https://";
 	}
