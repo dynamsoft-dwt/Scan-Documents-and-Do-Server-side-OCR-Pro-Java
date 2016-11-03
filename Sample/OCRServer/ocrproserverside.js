@@ -120,10 +120,13 @@ function Dynamsoft_OnReady() {
 		* Make sure the PDF Rasterizer add-on is already installed, please note that the file Pdf.zip is already part of the sample
 		*/
 		if(!Dynamsoft.Lib.env.bMac) {
-			var localPDFRVersion = DWObject._innerFun('GetAddOnVersion', '["pdf"]');
-			if(!Dynamsoft.Lib.product.bChromeEdition && DWObject.getSWebTwain != undefined) {
-				localPDFRVersion = DWObject.getSWebTwain().GetAddonVersion("pdf")
-			}			
+            var localPDFRVersion = '';
+			if(Dynamsoft.Lib.product.bChromeEdition){
+				localPDFRVersion = DWObject._innerFun('GetAddOnVersion', '["pdf"]');
+			}
+            else {
+                localPDFRVersion = DWObject.getSWebTwain().GetAddonVersion("pdf");
+            }			
 			if (localPDFRVersion != Dynamsoft.PdfVersion) {
 				objectDimention.width = DWObject.Width;
 				objectDimention.height = DWObject.Height;
