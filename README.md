@@ -1,33 +1,46 @@
 ﻿# Scan-Documents-and-Do-Server-side-OCR-Pro-Java
 
+## Introduction
+
 This sample demonstrates how to use Dynamic Web TWAIN's OCR Professional add-on to do OCR on the server side running Java. 
-####
-Dynamsoft Team
-2016-08-22
 
-# Download Source Code
+## Environment
 
-In order to test the demo, you will need to download the complete code <a href="http://www.dynamsoft.com/Samples/DWT/Scan-Documents-and-Do-Server-side-OCR-Pro-Java.zip" target="_blank">here</a>.
+The server must be Windows (x64), client can run Windows/macOS/Linux
 
-# How to install
+## Example environment
 
-  On the server or your development machine, if you have never installed Dynamic Web TWAIN Service (v11.3.2 or later), you need to run InstallService.bat as Administrator to install and start the Dynamic Web TWAIN Service.
+OS: Windows 10
+Server: Tomcat 9.0.24
+Eclipse: Oxygen.3a Release (4.7.3a)
+JRE: 1.8.0_221
 
-# How to uninstall
-  To uninstall, you can run UninstallService.bat as Administrator.
+## How to install the OCR engine on the server
 
-  References:
------------
+On the server or your development machine
+
+1. If you have NEVER installed Dynamsoft Service, download and install it from [here](https://tst.dynamsoft.com/libs/dwt/15.1/dist/DynamsoftServiceSetupTrial.msi).
+
+2. Download the OCR pro resources from [here](https://tst.dynamsoft.com/libs/dwt/15.1/OCRPResources/OCRProx64.zip).
+
+3. Unzip `OCRProx64.zip` and copy all the files to `C:\Windows\SysWOW64\Dynamsoft\DynamsoftServicex64`.
+
+## How to test it
+
+Option 1: 
+
+Open /Sample/.project in Eclipse, add a runtime server (Tomcat) and start it. Then naviate to http://localhost:8080/Scan-Documents-and-Do-Server-side-OCR-Pro-Java/OCRProServerSide.html
+
+Option 2:
+
+Deploy the sample in `\Sample\WebContent\` to Tomcat (typically under `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps`) and navigate to `http://localhost:8080\WebContent\OCRProServerSide.html`.
+
+## References:
+
 * [Dynamic Web TWAIN][1]
 * [Dynamsoft OCR Engine][2]
 
-[1]:http://www.dynamsoft.com/Downloads/WebTWAIN_Download.aspx
+[1]:https://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx
 [2]:http://www.dynamsoft.com/Products/image-to-text-web-application.aspx
 
-Should you need any technical help, please write to 
-support@dynamsoft.com.
-
-Thanks,
-
-Dynamsoft Team
-
+Should you need any technical help, please write to support@dynamsoft.com.
