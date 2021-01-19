@@ -91,7 +91,7 @@
 				String strResponse = "";
 
 				// upload
-				strResponse = org.apache.http.client.fluent.Request.Post("http://127.0.0.1:18622/dwt/dwt_trial_15100806/OCRPro")
+				strResponse = org.apache.http.client.fluent.Request.Post("http://127.0.0.1:18622/dwt/dwt_16200112/OCRPro")
 						.useExpectContinue()
 						.version(HttpVersion.HTTP_1_1)
 						.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.7 Safari/537.36")

@@ -9,7 +9,7 @@ window.onload = function () {
      * 3. Change Dynamsoft.WebTwainEnv.ResourcesPath to point to the full version 
      *    resource files that you obtain after purchasing a key
      */
-	Dynamsoft.WebTwainEnv.Trial = true;
+	Dynamsoft.WebTwainEnv.ProductKey = "t00901wAAAF+u0oFLI39wRNB580cu3kJSIZtbAcR5aCChp+BFa+RGTGv4L2zaA7Q4fzLjNbZJF55lzg9BdnPG5aZjeJPOJUTwD+r5izfQJtguoC4BNSFofgBZwyta";
 	//Dynamsoft.WebTwainEnv.ProductKey = "A-Valid-Product-Key";
 	//Dynamsoft.WebTwainEnv.ResourcesPath = "https://tst.dynamsoft.com/libs/dwt/15.0";
 
@@ -74,11 +74,11 @@ function Dynamsoft_OnReady() {
 	var i;
 	DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer'); // Get the Dynamic Web TWAIN object that is embeded in the div with id 'dwtcontrolContainer'
 	if (DWObject) {
-		DWObject.Width = 504;
-		DWObject.Height = 599;
-		DWObject.RegisterEvent("OnImageAreaSelected", Dynamsoft_OnImageAreaSelected);
-		DWObject.RegisterEvent("OnImageAreaDeSelected", Dynamsoft_OnImageAreaDeselected);
-		DWObject.RegisterEvent('OnTopImageInTheViewChanged', function (index) {
+		DWObject.Viewer.width = 504;
+		DWObject.Viewer.height = 599;
+		DWObject.Viewer.on("pageAreaSelected", Dynamsoft_OnImageAreaSelected);
+		DWObject.Viewer.on("pageAreaUnselected", Dynamsoft_OnImageAreaDeselected);
+		DWObject.Viewer.on("topPageChanged", function (index) {
 			DWObject.CurrentImageIndexInBuffer = index;
 		});
 		for (i = 0; i < OCRFindTextFlags.length; i++)
@@ -100,23 +100,26 @@ function Dynamsoft_OnReady() {
 	}
 }
 
-function Dynamsoft_OnImageAreaSelected(index, left, top, right, bottom, indexOfArea) {
-	if (arySelectedAreas.length + 2 > indexOfArea)
-		arySelectedAreas[indexOfArea - 1] = [index, left, top, right, bottom, indexOfArea];
-	else
-		arySelectedAreas.push(index, left, top, right, bottom, indexOfArea);
-	_iZone = "[";
-	for (var i = 0; i < arySelectedAreas.length; i++) {
-		_iZone += "[" + arySelectedAreas[i][1] + ', ' + arySelectedAreas[i][2] + ', ' + arySelectedAreas[i][3] + ', ' + arySelectedAreas[i][4] + "]";
-		if (i < arySelectedAreas.length - 1)
-			_iZone += ",";
+function Dynamsoft_OnImageAreaSelected(index, rect) {
+	if (rect.length > 0) {
+        var currentRect = rect[rect.length - 1];
+		if (arySelectedAreas.length + 2 > rect.length)
+			arySelectedAreas[rect.length - 1] = [index, currentRect.x, currentRect.y, currentRect.x + currentRect.width, currentRect.y + currentRect.heidht, rect.length];
+		else
+			arySelectedAreas.push(index, currentRect.x, currentRect.y, currentRect.x + currentRect.width, currentRect.y + currentRect.heidht, rect.length);
+		_iZone = "[";
+		for (var i = 0; i < arySelectedAreas.length; i++) {
+			_iZone += "[" + arySelectedAreas[i][1] + ', ' + arySelectedAreas[i][2] + ', ' + arySelectedAreas[i][3] + ', ' + arySelectedAreas[i][4] + "]";
+			if (i < arySelectedAreas.length - 1)
+				_iZone += ",";
+		}
+		_iZone += "]";
+		document.getElementById("ddlOCROutputFormat").options[5].disabled = true;
+		document.getElementById("ddlOCROutputFormat").options[6].disabled = true;
+		if (document.getElementById("ddlOCROutputFormat").selectedIndex > 4)
+			document.getElementById("ddlOCROutputFormat").selectedIndex = 4;
+		SetIfUseRedaction();
 	}
-	_iZone += "]";
-	document.getElementById("ddlOCROutputFormat").options[5].disabled = true;
-	document.getElementById("ddlOCROutputFormat").options[6].disabled = true;
-	if (document.getElementById("ddlOCROutputFormat").selectedIndex > 4)
-		document.getElementById("ddlOCROutputFormat").selectedIndex = 4;
-	SetIfUseRedaction();
 }
 
 function Dynamsoft_OnImageAreaDeselected(index) {
