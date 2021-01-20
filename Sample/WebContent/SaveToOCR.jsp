@@ -55,6 +55,10 @@
 	}
 
 	if (fileItem != null && strOutputFormat != null && strRequestBody != null) {
+		File savefolder=new File(dir+"\\UploadedImages");
+        if(savefolder.exists()==false){
+            savefolder.mkdir();
+        }
 		strInputFile = dir + "\\UploadedImages\\" + strInputFile;
 		strRequestBody = strRequestBody.replace("******", strInputFile.replaceAll("\\\\","\\\\\\\\"));
 		File uploadedFile = new File(strInputFile);
